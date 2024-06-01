@@ -2,6 +2,7 @@ const submit = document.querySelector("#btn");
 const lastName = document.querySelector("#last-name");
 const firstName = document.querySelector("#first-name");
 const email = document.querySelector("#email");
+const message = document.querySelector("#message");
 
 
 submit.addEventListener('click', (e) => {
@@ -9,6 +10,7 @@ submit.addEventListener('click', (e) => {
     validate(firstName);
     validate(lastName);
     validate(email);
+    validate(message)
 });
 
 // function to check 
@@ -37,6 +39,14 @@ function validate(input) {
                 input.placeholder = 'example@abc.com'
             } else return true;
             break;
+
+        case message:
+            if (input.value == "") {
+                input.style.border = '1px solid hsl(0, 66%, 54%)';
+                errorMessage(input);
+                input.placeholder = 'example@abc.com'
+            } else return console.log(input.value);
+            break;
     }
 }
 function errorMessage(input) {
@@ -48,7 +58,7 @@ function errorMessage(input) {
             p.style.color = 'hsl(0, 66%, 54%)';
             p.style.textAlign = 'right';
             p.style.marginTop = '5px';
-        break;
+            break;
 
         default:
             p.textContent = 'This field is required';
@@ -57,7 +67,7 @@ function errorMessage(input) {
             p.style.textAlign = 'right';
             p.style.marginTop = '5px';
 
-        break;
+            break;
     }
     input.after(p)
 }
