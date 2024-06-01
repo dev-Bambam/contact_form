@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./main.css" />
+
+    <!-- font link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&family=Kumbh+Sans:wght@100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- style -->
+    <style>
+      body {
+        font-family: karla;
+      }
+      input[type="radio"]:checked + .custom-radio {
+        background-color: hsl(169, 82%, 27%);
+        border-color: hsl(169, 82%, 27%);
+      }
+      .resize {
+        resize: none;
+      }
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .custom-checkbox {
+        appearance: none;
+        width: 1rem;
+        height: 1rem;
+        background-color: #ffffff;
+        border: 2px solid #d1d5db;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        position: relative;
+        display: inline-block;
+      }
+
+      .custom-checkbox:checked {
+        background-color: white;
+        border-color: hsl(169, 82%, 27%);
+      }
+
+      .custom-checkbox:checked::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0.5rem;
+        height: 0.5rem;
+        background-color: hsl(169, 82%, 27%);
+        border-radius: 0.125rem; /* Inner rectangle */
+        transform: translate(-50%, -50%);
+      }
+    </style>
+  </head>
+  <body
+    class="p-2 md:p-10 bg-g200 md:flex md:items-center md:justify-center lg:px-24 lg:py-10"
+  >
+    <section class="md:w-[60%]">
+      <form action="#" class="bg-white rounded-md p-2 md:px-4">
+        <h1 class="text-2xl font-bold text-grey900 my-3">Contact Us</h1>
+        <!-- first and last name div -->
+        <div
+          class="space-y-4 lg:flex lg:space-y-0 lg:justify-between lg:w-full lg:gap-3"
+        >
+          <div class="lg:w-full">
+            <label for="first-name" class="text-grey500 text-[16px]"
+              >First Name <span class="text-g600">*</span>
+            </label>
+            <input
+              type="text"
+              required
+              id="first-name"
+              class="block border w-full rounded-md h-10 px-2 hover:border-g600 focus:border-g600 focus:outline-none active:border-g600"
+            />
+          </div>
+          <div class="lg:w-full">
+            <label for="last-name" class="text-grey500 text-[16px]"
+              >Last Name <span class="text-g600">*</span>
+            </label>
+            <input
+              type="text"
+              required
+              id="last-name"
+              class="block border w-full rounded-md h-10 px-2 hover:border-g600 focus:border-g600 focus:outline-none active:border-g600"
+            />
+          </div>
+        </div>
+        <!-- email  -->
+        <div>
+          <label for="email" class="text-grey500 text-[16px]"
+            >Email <span class="text-g600">*</span>
+          </label>
+          <input
+            type="email"
+            required
+            id="email"
+            class="block border w-full rounded-md h-10 px-2 hover:border-g600 focus:border-g600 focus:outline-none active:border-g600"
+          />
+        </div>
+        <!-- query type -->
+        <div class="mt-4">
+          <p class="text-grey500 text-[16px] mb-3">
+            Query Type <span class="text-g600">*</span>
+          </p>
+          <div
+            class="space-y-4 lg:flex lg:space-y-0 lg:justify-between lg:w-full lg:gap-3"
+          >
+            <div
+              class="w-full border rounded-md px-3 py-2 hover:border-g600 flex items-center"
+            >
+              <input type="radio" name="" id="radio1" class="hidden" />
+              <label
+                for="radio1"
+                class="custom-radio w-4 h-4 inline-block mr-2 border border-gray-300 rounded-full cursor-pointer"
+              ></label
+              ><span class="text-grey500 text-[16px]">General Enquiry</span>
+            </div>
+
+            <div
+              class="w-full border rounded-md px-3 py-2 hover:border-g600 flex items-center"
+            >
+              <input type="radio" name="" id="radio2" class="hidden" />
+              <label
+                for="radio2"
+                class="custom-radio w-4 h-4 inline-block mr-2 border border-gray-300 rounded-full cursor-pointer"
+              ></label
+              ><span class="text-grey500 text-[16px]">Support Request</span>
+            </div>
+          </div>
+        </div>
+        <!-- message -->
+        <div class="my-5">
+          <label for="message" class="text-grey500 text-[16px] mb-3"
+            >Message</label
+          >
+          <span class="text-g600">*</span>
+          <textarea
+            name=""
+            id="message"
+            class="resize no-scrollbar block border w-full rounded-md h-36 hover:border-g600 focus:border-g600 focus:outline-none active:border-g600"
+          >
+          </textarea>
+        </div>
+        <!-- checkbox -->
+        <div class="mb-4">
+          <div class="flex items-center gap-4">
+            <input type="checkbox" class="custom-checkbox" />
+            <p class="w-[70%]">
+              I consent to being contacted by the team
+              <span class="text-g600">*</span>
+            </p>
+          </div>
+        </div>
+        <!-- submit button -->
+        <button
+          id="btn"
+          class="text-center w-full text-white text-2xl py-3 rounded-md bg-g600"
+        >
+          Submit
+        </button>
+      </form>
+    </section>
+
+    <script src="index.js"></script>
+  </body>
+</html>
