@@ -1,73 +1,102 @@
 const submit = document.querySelector("#btn");
 const lastName = document.querySelector("#last-name");
 const firstName = document.querySelector("#first-name");
-const email = document.querySelector("#email");
+const email = document.querySelector("input[type = 'email'] ");
 const message = document.querySelector("#message");
+const checkbox = document.querySelector("#checkbox");
+const consMessage = document.querySelector("#cnst-msg");
+const radioButton1 = document.querySelector("#radio1");
+const radioButton2 = document.querySelector("#radio2");
+const radioButtonContainer = document.querySelector("#radioButton-container");
+const successMessage = document.querySelector("#success-message");
+let checked = false;
 
 
 submit.addEventListener('click', (e) => {
-    e.preventDefault();
-    validate(firstName);
-    validate(lastName);
-    validate(email);
-    validate(message)
+    // if(!valid){e.preventDefault()}
+
+    let valid = true
+
+    valid &= validate(firstName);
+    valid &= validate(lastName);
+    valid &= validate(email);
+    valid &= validate(message);
+    valid &= validate(checkbox);
+    valid &= validate(checked);
+
+    if (valid) {
+        successMessage.classList.remove('hidden');
+        firstName.value = '' 
+    }
 });
 
-// function to check 
+// function to validate when form is submitted
 function validate(input) {
     switch (input) {
-        case firstName:
+        case checkbox:
+            if(!input.checked){
+                errorMessage(consMessage);
+            }else return true
+        break;
+
+        case checked:
+            radioCheck(radioButton1,radioButton2)
+            if(!checked){
+                errorMessage(radioButtonContainer);
+            }else return true
+        break;
+    
+        default:
             if (input.value == "") {
-                input.style.border = '1px solid hsl(0, 66%, 54%)';
-                input.placeholder = 'John'
                 errorMessage(input);
             } else return true;
-            break;
-
-        case lastName:
-            if (input.value == "") {
-                input.style.border = '1px solid hsl(0, 66%, 54%)';
-                input.placeholder = 'Doe'
-                errorMessage(input);
-            } else return true;
-            break;
-
-        case email:
-            if (input.value == "") {
-                input.style.border = '1px solid hsl(0, 66%, 54%)';
-                errorMessage(input);
-                input.placeholder = 'example@abc.com'
-            } else return true;
-            break;
-
-        case message:
-            if (input.value == "") {
-                input.style.border = '1px solid hsl(0, 66%, 54%)';
-                errorMessage(input);
-                input.placeholder = 'example@abc.com'
-            } else return console.log(input.value);
-            break;
+        break;
     }
 }
+// error message function
 function errorMessage(input) {
-    let p = document.createElement('p');
+    removeErrorMessage(input)
+
+    input.style.border = '1px solid hsl(0, 66%, 54%)';
+    let p = document.createElement('p');            // for the error message
+    p.style.color = 'hsl(0, 66%, 54%)';
+    p.style.marginTop = '5px';
+    p.className = 'error-message' 
+    input.after(p)
+
     switch (input) {
         case email:
-            p.textContent = 'please input a valid email';
-            // styling the error message
-            p.style.color = 'hsl(0, 66%, 54%)';
-            p.style.textAlign = 'right';
-            p.style.marginTop = '5px';
-            break;
+            input.placeholder = 'abc@example.com';
+            p.textContent = 'please enter a valid email'
+        break;
+
+        case consMessage:
+            p.textContent = 'please consent to being contacted by the team';
+            input.style.border = '';
+            input.parentNode.after(p)
+        break
 
         default:
-            p.textContent = 'This field is required';
-            // styling the error message
-            p.style.color = 'hsl(0, 66%, 54%)';
-            p.style.textAlign = 'right';
-            p.style.marginTop = '5px';
+            input.placeholder = 'Myname';
+            p.textContent = 'this field is required'
+        break;
 
-            break;
+        case radioButtonContainer :
+            p.textContent = 'please select a query type';
+            input.style.border = '';
+            input.after(p)
+        break;
     }
-    input.after(p)
+}
+// function to remove existing error messages
+function removeErrorMessage(input){
+    let existingError = input.nextElementSibling || input.parentNode.nextElementSibling;
+    if(existingError && existingError.className === 'error-message'){existingError.remove()}
+}
+// function to check if one of the radio button is selected
+
+function radioCheck (radio1, radio2){
+    if(radio1.checked || radio2.check){
+        checked = true;
+    }
 }
