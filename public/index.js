@@ -9,11 +9,20 @@ const radioButton1 = document.querySelector("#radio1");
 const radioButton2 = document.querySelector("#radio2");
 const radioButtonContainer = document.querySelector("#radioButton-container");
 const successMessage = document.querySelector("#success-message");
-let checked = false;
 
+// Check if the form was successfully submitted
+document.addEventListener('DOMContentLoaded', () => {
+    if (localStorage.getItem('formSubmitted')) {
+        successMessage.classList.remove('hidden');
+        setTimeout(()=>{
+            successMessage.classList.add('hidden');
+        }, 3000)
+        localStorage.removeItem('formSubmitted');
+    }
+});
 
 submit.addEventListener('click', (e) => {
-    // if(!valid){e.preventDefault()}
+    e.preventDefault()
 
     let valid = true
 
@@ -22,11 +31,12 @@ submit.addEventListener('click', (e) => {
     valid &= validate(email);
     valid &= validate(message);
     valid &= validate(checkbox);
-    valid &= validate(checked);
+    valid &= radioCheck(radioButton1, radioButton2)
 
     if (valid) {
-        successMessage.classList.remove('hidden');
-        firstName.value = '' 
+        localStorage.setItem('formSubmitted', 'true');
+        window.location.reload();
+        window.scrollTo(0, 0); // Scroll to the top after the page loads
     }
 });
 
@@ -36,13 +46,6 @@ function validate(input) {
         case checkbox:
             if(!input.checked){
                 errorMessage(consMessage);
-            }else return true
-        break;
-
-        case checked:
-            radioCheck(radioButton1,radioButton2)
-            if(!checked){
-                errorMessage(radioButtonContainer);
             }else return true
         break;
     
@@ -61,6 +64,7 @@ function errorMessage(input) {
     let p = document.createElement('p');            // for the error message
     p.style.color = 'hsl(0, 66%, 54%)';
     p.style.marginTop = '5px';
+    p.textContent = 'this field is required';
     p.className = 'error-message' 
     input.after(p)
 
@@ -68,6 +72,18 @@ function errorMessage(input) {
         case email:
             input.placeholder = 'abc@example.com';
             p.textContent = 'please enter a valid email'
+        break;
+
+        case firstName:
+            input.placeholder = 'John';
+        break;
+
+        case lastName:
+            input.placeholder = 'Doe';
+        break;
+
+        case message:
+            input.placeholder = ' What is on your mind?';
         break;
 
         case consMessage:
@@ -94,9 +110,9 @@ function removeErrorMessage(input){
     if(existingError && existingError.className === 'error-message'){existingError.remove()}
 }
 // function to check if one of the radio button is selected
-
 function radioCheck (radio1, radio2){
-    if(radio1.checked || radio2.check){
-        checked = true;
-    }
+    if(!radio1.checked && !radio2.checked){
+        errorMessage(radioButtonContainer)
+        return  false;
+    }else return true
 }
